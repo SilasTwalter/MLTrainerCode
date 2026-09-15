@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Train Regression Model{% endblock %}
+
+{% block style %} {% endblock %}
+
+{% block content %}
+<form enctype = "multipart/form-data" action = "{{url_for('trainRegressionModel.train')}}" method = "POST" id = "MLRegression">
+<h1 class = "sectionHead">Select the data for your regression model</h1>
+
+  <div id = "chooseData" class = "default">
+    <button type = "button" id = "defaultData" name = "defaultData" value = "1">Default Dataset</button>
+    <button type = "button" id = "importData" name = "importData" value = "2">Choose Your Own Dataset</button>
+    <input type = "text" id = "dataChoice" name = "dataChoice" value = "" hidden> <!-- this is needed to check if the user has selected either of a default or their own dataset-->
+  </div>
+  
+
+  <div id = "sklearnDataset" class = "default" hidden>  
+    <label for="defaultDatasets">Select a Dataset:</label>
+  <select type = "text" id="defaultDatasets" name="defaultDatasets">
+    <option value=""></option>
+    <option value="fetch_california_housing">California Housing Prices</option>
+    <option value="load_diabetes">Diabetes</option>
+  </select>
+  </div>
+  
+  <div id = "userDataset" hidden>
+    <div class = "default">
+    <label for = "importedDataset">Upload A Dataset</label>
+    <input type = "file" id = "importedDataset" name = "importedDataset" />
+    </div>
+
+    <div class = "default">
+    <label for = "header">Data has headers</label>
+    <input type = "radio" id = "header" name = "headOrNo" value = "header">
+    <label for = "noHeader">Data has no headers</label>
+    <input type = "radio" id = "noHeader" name = "headOrNo" value = "noHeader">
+    </div>
+  </div>
+
+  <div class = "default">
+  <label for = "testingSize">Testing Data Size</label>
+  <input type = "number" id = "testingSize" name = "testingSize" placeholder= "eg. 0.2" max = "0.99" step = "0.01">
+  </div>
+  
+  <h1 class = "sectionHead">Select a Machine Learning Model</h1>
+  <div class = "default">
+  <label for="MLmodel">Select a Machine Learning Model:</label>
+  <select id="MLmodel" name="MLmodel">
+    <option value=""></option>
+    <option value="Kneighbors">Kneighbors</option>
+    <option value="RandomForest">Random Forest</option>
+  </select>
+  </div>
+  
+  <div id = "Kneighbors"  hidden>
+    
+    <div class = "default">
+    <label for = "knn_totalNeighbors">Number of Neighbors</label>
+    <input type = "number" id = "knn_totalNeighbors" name = "knn_totalNeighbors" placeholder= "eg. 5">
+    </div>
+
+    <div class = "default">
+    <label for = "knn_uniformWeight">Uniform Weight</label>
+    <input type = "radio" id = "knn_uniformWeight" name = "knn_modelWeight" value = "uniform">
+    <label for = "knn_distanceWeight">Distance Weight</label>
+    <input type = "radio" id = "knn_distanceWeight" name = "knn_modelWeight" value = "distance">
+    </div>
+
+  </div>
+
+  <div id = "RandomForest" hidden>
+    <div class = "default">
+    <label for = "rfr_n_estimators"> Estimators</label>
+    <input type = "number" id = "rfr_n_estimators" name = "rfr_n_estimators" placeholder = "eg. 100">
+    </div>
+
+    <div class = "default">
+    <label for = "rfr_max_depth">Max Depth</label>
+    <input type = "number" id = "rfr_max_depth" name = "rfr_max_depth" placeholder = "eg. 10">
+    </div>
+
+    <div class = "default">
+    <label for = "rfr_min_samples_split"> Minimum Sample Split</label>
+    <input type = "number" id = "rfr_min_samples_split" name = "rfr_min_samples_split" placeholder = "eg. 50">
+    </div>
+
+    <div class = "default">
+    <label for = "rfr_min_samples_leaf"> Minimum Sample Leaf</label>
+    <input type = "number" id = "rfr_min_samples_leaf" name = "rfr_min_samples_leaf" placeholder = "eg. 10">
+    </div>
+
+    <div class = "default">
+    <label for = "rfr_max_features">Max Features</label>
+    <input type = "number" id = "rfr_max_features" name = "rfr_max_features" placeholder = "eg. 4">
+    </div>
+
+  </div>
+  <p><input type = "submit" class = "submit" id = "submit"  name = "submit" value = "Confirm"></p>
+  <p><button type = "reset" class = "clearForm" id = "clearForm">Clear Form</button></p>
+</form>
+
+{% if error is not none %}
+   <p class = "default">{{ error }}</p>
+{% endif %}
+
+<script src = "{{ url_for('static', filename = 'MLTrainCheck.js')}}"></script> <!--This javascript prevents the form from submitting if the user has not filled out things like the model or data they are using-->
+    
+{% endblock %}

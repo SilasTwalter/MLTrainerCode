@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+
+{% block content %}
+<form enctype = "multipart/form-data" action = "{{url_for('core.testFiles')}}" method = "POST" id = "testModel"> <!--enctype = "multipart/form-data" ensures that the data isn't changed from the original when it is sent-->
+   
+   <h1 class = "sectionHead">To test a model upload it with testing data</h1>
+   <div class = "default">
+   <label for = "MLmodel">Upload Model:</label>
+   <input type = "file" id = "MLmodel" name = "MLmodel"/>
+   </div>
+   
+   <div class = "default">
+   <label for = "testingData">Upload Testing Data: </label>
+   <input type = "file" id = "testingData" name = "testingData" />
+   </div>
+   <input type = "submit" class = "submit" value = "Test Model"/>
+   <button type = "reset" class = "clearForm">Clear files</button>
+</form>
+
+{% if calculation_result is not none %}
+   <p class = "default">{{ calculation_result }}</p>
+{% endif %}
+
+
+<script src = "{{ url_for('static', filename = 'MLTestCheck.js')}}"></script> <!--This javascript prevents the form from submitting if the user has not filled out things like the model or data they are using-->
+<!--<script>
+
+document.getElementById('testModel').addEventListener("submit", function (event){
+   let messageBuffer = ""   
+   if(document.getElementById('MLmodel').files.length === 0){
+      messageBuffer = "No model was uploaded.";
+   }
+   if(document.getElementById('testingData').files.length === 0){
+      messageBuffer+= checkIfEmpty(messageBuffer) + "No testing data was uploaded.";
+   }
+   if(messageBuffer != ""){
+      event.preventDefault();
+      alert(messageBuffer);
+   }
+});
+
+function checkIfEmpty(messageBuffer){
+    if(messageBuffer != ""){
+      return "\n";
+    }
+    else{
+      return "";
+    }
+  }
+
+</script>
+-->
+{% endblock %}

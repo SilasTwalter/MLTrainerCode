@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Select Model{% endblock %}
+
+{% block content %}
+    <h1>Train here</h1>
+    <a href = "{{ url_for('trainML.Kneighbors')}}">Kneghbors Model</a>
+    <a href = "{{ url_for('trainML.Kneighbors')}}">Classification</a>
+{% endblock %}

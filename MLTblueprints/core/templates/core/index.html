@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Core{% endblock %}
+{% block  style %} <link rel = "stylesheet" href = "{{url_for('static', filename = 'homePage.css')}}"> {% endblock %}
+
+{% block content %}
+
+<div class = "page">
+<ul>
+    <li class = "list"><a class = "link" href = "{{url_for('trainRegressionModel.train')}}">Train a regression model</a></li>
+    <li class = "list"><a class = "link" href = "{{url_for('trainClassificationModel.train')}}">Train a classification model</a></li>
+    <li class = "list"><a class = "link" href = "{{url_for('core.testFiles')}}">Test a model</a></li>
+    <!--<li class = "list"><a class = "link" href = "{{url_for('core.testFiles')}}">User Guide</a></li> I will be adding a user guide later on to give more instructions on training models-->
+</ul>
+</div>
+
+
+
+    
+{% endblock %}
