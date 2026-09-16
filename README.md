@@ -1,2 +1,1 @@
-# MLTrainerCode
-# To start the project, the run file needs to be executed
+# To start the project, the run file needs to be executed and the contents in the requirements.txt file need to be installed
